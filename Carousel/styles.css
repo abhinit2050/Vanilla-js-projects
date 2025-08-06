@@ -1,0 +1,33 @@
+.carousel-container{
+    width:500px;
+    height:400px;
+  overflow: hidden;
+    margin:0px auto;
+   
+}
+
+.slide{
+     display: flex;
+      transition: transform 0.5s ease-in-out;
+      
+}
+
+.slide img {
+    width: 500px;
+    height: 400px;
+    flex-shrink: 0;
+    object-fit: cover;
+   
+}
+
+.parentCarousel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:fit-content;
+    margin: 0px auto;
+}
+
+#prevBtn, #nextBtn{
+    cursor:pointer;
+}
