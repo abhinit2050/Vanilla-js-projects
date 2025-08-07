@@ -1,0 +1,23 @@
+.paginationContainer{
+    margin:100px auto 10px auto;
+    width:50vw;
+   height:fit-content;
+    display:flex;
+    flex-direction:column;
+    overflow: scroll;
+   
+}
+
+.footer{
+    width: 46vw;
+    display: flex;
+    justify-content:center;
+    margin:0 auto 0 24vw;
+    
+}
+
+#pageNoDisplay{
+    text-align: center;
+    margin:3px;
+    
+}
