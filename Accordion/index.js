@@ -5,6 +5,7 @@ const menuData = [
       { name: "Butter Chicken", price: 250 },
       { name: "Paneer Tikka", price: 200 },
       { name: "Masala Dosa", price: 150 },
+       { name: "Dal Khichdi", price: 175 },
     ]
   },
   {
@@ -36,18 +37,36 @@ const elementStyle = {
 }
 
 menuData.forEach((item, index)=>{
+    
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('accordion-section')
+   
+    //adding Header
     const div = document.createElement('div');
     div.textContent = item.category;
     div.id = item.category;
+    
     Object.assign(div.style,elementStyle);
+
+    //adding dish container
+    const dishContainer = document.createElement('div');
+  dishContainer.classList.add('dish-container');
+  dishContainer.style.display = 'none'; // hide initially
+
     div.addEventListener("click",()=>{
         handleAccordionElement(div);
     })
 
-    parentContainer.appendChild(div)
+    wrapper.appendChild(div);
+    wrapper.appendChild(dishContainer)
+    parentContainer.appendChild(wrapper);
 })
 
+let isExpanded = false;
+
 function handleAccordionElement(ele){
+     isExpanded = !isExpanded;
+
     const newChildStyle = {
         maxWidth:'100%',
         height:'20px',
@@ -58,24 +77,46 @@ function handleAccordionElement(ele){
         border:'1px dotted black'
     }
 
-    const dishesArray = (menuData.filter((el,i)=> el.category == ele.id)[0].items);
     const element = document.querySelector(`#${ele.id}`);
 
-    dishesArray.forEach((ele)=>{
+    if(isExpanded){
+            const dishesArray = (menuData.filter((el,i)=> el.category == ele.id)[0].items);
+        dishesArray.forEach((ele,index)=>{
 
-        const div = document.createElement('div');
-        div.id='dishBox';
-        const dishName = document.createElement('div');
-        const dishPrice = document.createElement('div');
-        dishName.textContent = ele.name;
-        dishPrice.textContent = ele.price;
+            const div = document.createElement('div');
+            div.id=`dishBox-${index+1}`;
+            const dishName = document.createElement('div');
+            const dishPrice = document.createElement('div');
+            dishName.textContent = ele.name;
+            dishPrice.textContent = ele.price;
 
-        div.appendChild(dishName);
-        div.appendChild(dishPrice);
+            div.appendChild(dishName);
+            div.appendChild(dishPrice);
 
-   Object.assign(div.style,newChildStyle)
-    element.appendChild(div);
-    element.style.height = 'fit-content';
-    })
+    Object.assign(div.style,newChildStyle)
+        element.appendChild(div);
+        element.style.height = 'fit-content';
+        })
+    } else {
+       let eleChildren = (element.children);
+      let arraylength = eleChildren.length;
+      let idArray=[]
+
+      for(let j=0;j<arraylength;j++){
+        idArray.push(eleChildren[j].id)
+      }
+
+        for(let i=0; i<arraylength;i++){
+             
+            let identifiedChild = document.getElementById(idArray[i]);
+            identifiedChild.remove();
+        }
+       
+       
+       
+       
+    }
+    
+   
     
 }
